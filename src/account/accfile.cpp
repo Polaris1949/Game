@@ -1,39 +1,8 @@
-#ifndef _ROCO_ACCFILE_HPP
-#define _ROCO_ACCFILE_HPP 1
-
-#include <fstream>
+#include "accfile.h"
+#include "config.h"
 
 namespace roco
 {
-
-class accfile;
-
-class accfile
-{
-    std::size_t _M_id;
-    std::fstream _M_file;
-
-public:
-    enum class openmode : unsigned char
-    { def, in, out };
-
-    accfile();
-    accfile(std::size_t __id);
-    std::size_t id() const;
-    void open();
-    void open(std::size_t __id);
-    void open(std::size_t __id, openmode __mode);
-    void close();
-    bool is_open() const;
-    explicit operator bool() const;
-    template<typename _T> accfile& operator >> (_T& __x);
-    template<typename _T> accfile& operator << (const _T& __x);
-
-private:
-    static std::ios_base::openmode _S_file_openmode(openmode __mode);
-    void _M_basic_open(std::size_t __id, openmode __mode);
-    void _M_check();
-};
 
 accfile::accfile()
     : _M_id(), _M_file()
@@ -84,20 +53,6 @@ accfile::operator bool() const
     return this->is_open();
 }
 
-template<typename _T>
-accfile& accfile::operator >> (_T& __x)
-{
-    this->_M_file >> __x;
-    return *this;
-}
-
-template<typename _T>
-accfile& accfile::operator << (const _T& __x)
-{
-    this->_M_file << __x;
-    return *this;
-}
-
 std::ios_base::openmode accfile::_S_file_openmode(openmode __mode)
 {
     switch (__mode)
@@ -110,8 +65,8 @@ std::ios_base::openmode accfile::_S_file_openmode(openmode __mode)
 
 void accfile::_M_basic_open(std::size_t __id, openmode __mode)
 {
-    this->_M_file.open(std::string("./data/") + std::to_string(__id),
-        _S_file_openmode(__mode));
+    this->_M_file.open(std::string(_ROCO_VARDIR "/account/")
+        + std::to_string(__id), _S_file_openmode(__mode));
     this->_M_id = __id;
 }
 
@@ -121,5 +76,3 @@ void accfile::_M_check()
 }
 
 }
-
-#endif
