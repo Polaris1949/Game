@@ -1,20 +1,23 @@
-source = *.cpp
-object = *.o
+object = accfile.o account.o user.o
 rootdir = /cygdrive/d/develop/roco
 incdir = $(rootdir)/include
 incdepdir = /cygdrive/d/develop
 libdir = $(rootdir)/lib/game
 libfile = libgacc.a
+libdyn = cyggacc.dll
 
 CXX = g++
-CXXFLAGSINC = -I$(incdepdir) -I$(incdir)/core -I$(incdir)/account
-CXXFLAGS = -std=gnu++17 -c -g3 $(CXXFLAGSINC)
+CXXINC = -I$(incdepdir) -I$(incdir) -I$(incdir)/core -I$(incdir)/account
+CXXFLAGS = -std=gnu++17 -g3 -DROCO_IN $(CXXINC)
 
 all: lib install
 
-lib:
-	$(CXX) $(source) $(CXXFLAGS)
-	ar cru $(libfile) $(object)
+lib: $(object)
+	$(AR) cru $(libfile) $(object)
+	$(CXX) $(CXXFLAGS) $(object) -fPIC -shared -o $(libdyn)
+
+$(object): %.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 install:
 	mkdir -p $(libdir)
