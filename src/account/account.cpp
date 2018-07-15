@@ -27,7 +27,7 @@ bool account::from_file(accfile& __f)
     if (!__f)
     {
         this->_M_id = 0;
-        this->_M_name = "bad accfile";
+        this->_M_name = "?bad accfile";
         return false;
     }
 
