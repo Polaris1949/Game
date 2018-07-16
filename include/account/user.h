@@ -21,6 +21,8 @@ public:
     bool login(const account& __a);
     bool logout(const account& __a);
 
+    bool reg(const account& __a);
+
     friend std::ostream& operator << (std::ostream& __out, const user& __x);
 };
 
