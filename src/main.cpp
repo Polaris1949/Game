@@ -1,4 +1,4 @@
-#include "ui/ui.h"
+#include "ui.h"
 
 int main()
 {
