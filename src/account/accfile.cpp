@@ -65,8 +65,8 @@ std::ios_base::openmode accfile::_S_file_openmode(openmode __mode)
 
 void accfile::_M_basic_open(std::size_t __id, openmode __mode)
 {
-    this->_M_file.open(std::string(_ROCO_VARDIR "/account/")
-        + std::to_string(__id), _S_file_openmode(__mode));
+    this->_M_file.open(std::string(_ROCO_DIR_VAR_ACC "/")
+        + std::to_string(__id) + _ROCO_FE_ADB, _S_file_openmode(__mode));
     this->_M_id = __id;
 }
 
