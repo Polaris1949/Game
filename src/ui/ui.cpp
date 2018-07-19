@@ -83,6 +83,11 @@ bool ui_login()
         pol::console.foreground_color(1);
         std::cout << "Note: You can use ";
         pol::console.highlight();
+        std::cout << "Ctrl+B";
+        pol::console.purge();
+        pol::console.foreground_color(1);
+        std::cout << " to cancel the register, or use ";
+        pol::console.highlight();
         std::cout << "Ctrl+E";
         pol::console.purge();
         pol::console.foreground_color(1);
@@ -121,7 +126,7 @@ bool ui_login()
         alert_clear();
         user u;
         u.login(a);
-        alert_ex("Login succesfully!");
+        alert_ex("Login successfully!");
         sleep(1);
         return true;
     }
@@ -150,6 +155,11 @@ bool ui_reg()
         pol::console.locate(0, 4);
         pol::console.foreground_color(1);
         std::cout << "Note: You can use ";
+        pol::console.highlight();
+        std::cout << "Ctrl+B";
+        pol::console.purge();
+        pol::console.foreground_color(1);
+        std::cout << " to cancel the register, or use ";
         pol::console.highlight();
         std::cout << "Ctrl+E";
         pol::console.purge();
@@ -199,7 +209,7 @@ bool ui_reg()
             continue;
         }
 
-        alert("Register succesfully!");
+        alert("Register successfully!");
         sleep(1);
         return true;
     }
